@@ -1,0 +1,35 @@
+@import "tailwindcss";
+@import "@fontsource-variable/geist";
+
+/* The NUI page is transparent so the game renders behind the phone. */
+html,
+body,
+#root {
+  background: transparent !important;
+  overflow: hidden;
+  height: 100%;
+  margin: 0;
+}
+body {
+  user-select: none;
+  cursor: default;
+  font-family: -apple-system, 'SF Pro Text', 'SF Pro Display', 'Geist Variable', system-ui, sans-serif;
+  color: #fff;
+}
+
+/* hide scrollbars inside scrollable app views (still scrollable) */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@keyframes phone-in {
+  from { opacity: 0; transform: translateY(48px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes phone-out {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(48px) scale(0.95); }
+}
+@keyframes app-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}

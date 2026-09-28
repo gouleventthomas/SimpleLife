@@ -1,0 +1,79 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# SimpleLife — exemple de server.cfg
+# Copie ce fichier en `server.cfg`, renseigne les valeurs ⟨…⟩ puis lance le serveur.
+# NE COMMITTE JAMAIS ton vrai server.cfg (clé licence, identifiants DB…). Il est gitignoré.
+# ─────────────────────────────────────────────────────────────────────────────
+
+sv_hostname "SimpleLife"
+sets sv_projectName "SimpleLife"
+sets sv_projectDesc "Framework RP FiveM maison"
+sets locale "root-AQ"
+
+## Build / réseau
+sv_enforceGameBuild 3751            # mp2025_02
+sv_licenseKey "⟨TA_CLE_CFX⟩"         # https://keymaster.fivem.net
+sv_maxclients 48
+endpoint_add_tcp "0.0.0.0:30120"
+endpoint_add_udp "0.0.0.0:30120"
+set steam_webApiKey "none"
+set resources_useSystemChat true
+
+## OneSync : à activer dans txAdmin (Settings) — requis par ox_lib
+# set onesync on
+
+## Base de données (MariaDB) — crée d'abord :  CREATE DATABASE simplelife_dev CHARACTER SET utf8mb4;
+set mysql_connection_string "mysql://⟨USER⟩:⟨MDP⟩@localhost:3306/simplelife_dev?charset=utf8mb4"
+
+## ── Ressources FiveM de base ──
+ensure mapmanager
+ensure chat
+ensure spawnmanager
+ensure sessionmanager
+ensure hardcap
+
+## ── Maps / MLO (optionnel) ──
+# ensure ⟨ta_mlo_concessionnaire⟩
+# ensure bob74_ipl                  # gestion des IPL / intérieurs (optionnel)
+
+## ── Audio (optionnel — ajoute tes .awc dans sl_sounds/audiodirectory/) ──
+ensure sl_sounds
+
+## ── Voix ──
+setr voice_useNativeAudio true
+setr voice_useSendingRangeOnly true
+setr voice_enableRadios 0
+setr voice_enableCalls 1
+setr voice_defaultCycle F11
+ensure pma-voice
+
+## ── Dépendances tierces ──
+ensure oxmysql
+ensure ox_lib
+ensure ox_target
+setr fivem-appearance:locale "fr"
+ensure fivem-appearance
+ensure screenshot-basic
+
+## ── Framework SimpleLife (ORDRE IMPORTANT : sl_core en premier) ──
+ensure sl_core
+ensure sl_interact
+ensure sl_ui
+ensure sl_identity
+ensure sl_bank
+ensure sl_inventory
+ensure sl_phone
+ensure sl_shops
+ensure sl_vehicles
+ensure sl_hud
+ensure sl_minimap
+ensure sl_admin
+
+## ── Admin (ACE) ──
+add_ace group.admin command allow
+add_ace group.admin command.quit deny
+add_ace group.admin sl.admin allow          # menu F10 SimpleLife
+
+## Remplace par TES identifiants pour être admin
+add_principal identifier.license:⟨TON_LICENSE⟩ group.admin
+# add_principal identifier.fivem:⟨TON_FIVEM_ID⟩ group.admin
+# add_principal identifier.discord:⟨TON_DISCORD_ID⟩ group.admin

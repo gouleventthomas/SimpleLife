@@ -1,0 +1,36 @@
+# ── Dépendances Node (rebuild via `npm install` dans chaque dossier web/) ──
+**/node_modules/
+**/.vite/
+**/dist/
+npm-debug.log*
+
+# ── Logs / OS ──
+*.log
+.DS_Store
+Thumbs.db
+
+# ── Caches serveur FiveM ──
+cache/
+**/cache/
+
+# ── Secrets (ne jamais committer) ──
+server.cfg
+.env
+
+# ── Assets binaires tiers / jeu : NON redistribués (voir README) ──
+# sl_sounds  → dépose ton pack .awc dans resources/[audio]/sl_sounds/audiodirectory/
+# sl_minimap → dépose les .gfx (pack b2k-minimap) dans resources/[simplelife]/sl_minimap/stream/
+**/*.awc
+**/*.gfx
+**/*.rpf
+**/*.ytd
+**/*.ydr
+**/*.ybn
+**/*.ymap
+**/*.ytyp
+**/*.ymf
+**/*.gxt2
+**/*.dat54.rel
+**/*.dat54.nametable
+**/*.dat151.rel
+**/*.dat151.nametable

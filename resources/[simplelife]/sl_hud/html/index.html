@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<style>
+  /* Position of the gauge column. Tweak --hud-left / --hud-bottom to taste (above the minimap). */
+  :root { --hud-left: 17vw; --hud-bottom: 3.6vh; }
+  html, body { margin: 0; height: 100%; background: transparent; overflow: hidden;
+    font-family: -apple-system, 'Segoe UI', system-ui, sans-serif; }
+
+  #hud { position: fixed; left: var(--hud-left); bottom: var(--hud-bottom);
+    opacity: 0; transition: opacity .25s ease; }
+  #hud.on { opacity: 1; }
+
+  /* Liquid-Glass panel: dark translucent gradient + edge highlight + depth shadow. */
+  .panel {
+    display: flex; flex-direction: column; gap: 8px; padding: 9px; border-radius: 22px;
+    background: linear-gradient(180deg, rgba(20,22,28,0.62), rgba(12,14,19,0.72));
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 18px 55px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.18);
+  }
+
+  .g { position: relative; width: 44px; height: 44px; }
+  .g svg { transform: rotate(-90deg); display: block; }
+  .g .trk { stroke: rgba(255,255,255,0.10); }
+  .g .bar { stroke-linecap: round; transition: stroke-dashoffset .35s ease; }
+  .g .ic { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    font-size: 15px; line-height: 1; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.85)); }
+
+  .g[data-k="health"] .bar { stroke: #ff453a; filter: drop-shadow(0 0 4px rgba(255,69,58,0.6)); }
+  .g[data-k="armor"]  .bar { stroke: #5ac8fa; filter: drop-shadow(0 0 4px rgba(90,200,250,0.6)); }
+  .g[data-k="hunger"] .bar { stroke: #ff9f0a; filter: drop-shadow(0 0 4px rgba(255,159,10,0.6)); }
+  .g[data-k="thirst"] .bar { stroke: #32ade6; filter: drop-shadow(0 0 4px rgba(50,173,230,0.6)); }
+
+  .g.low .bar { animation: pulse 1s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+</style>
+</head>
+<body>
+  <div id="hud">
+    <div class="panel">
+      <div class="g" data-k="health"><svg width="44" height="44"><circle class="trk" cx="22" cy="22" r="18" fill="none" stroke-width="5"/><circle class="bar" cx="22" cy="22" r="18" fill="none" stroke-width="5"/></svg><div class="ic">❤️</div></div>
+      <div class="g" data-k="armor"><svg width="44" height="44"><circle class="trk" cx="22" cy="22" r="18" fill="none" stroke-width="5"/><circle class="bar" cx="22" cy="22" r="18" fill="none" stroke-width="5"/></svg><div class="ic">🛡️</div></div>
+      <div class="g" data-k="hunger"><svg width="44" height="44"><circle class="trk" cx="22" cy="22" r="18" fill="none" stroke-width="5"/><circle class="bar" cx="22" cy="22" r="18" fill="none" stroke-width="5"/></svg><div class="ic">🍔</div></div>
+      <div class="g" data-k="thirst"><svg width="44" height="44"><circle class="trk" cx="22" cy="22" r="18" fill="none" stroke-width="5"/><circle class="bar" cx="22" cy="22" r="18" fill="none" stroke-width="5"/></svg><div class="ic">💧</div></div>
+    </div>
+  </div>
+
+  <script>
+    const C = 2 * Math.PI * 18; // r = 18
+    function setGauge(key, pct) {
+      const g = document.querySelector('.g[data-k="' + key + '"]');
+      if (!g) return;
+      const v = Math.max(0, Math.min(100, Number(pct) || 0));
+      const bar = g.querySelector('.bar');
+      bar.style.strokeDasharray = C;
+      bar.style.strokeDashoffset = C * (1 - v / 100);
+      g.classList.toggle('low', v <= 20);
+    }
+    window.addEventListener('message', (e) => {
+      const d = e.data || {};
+      if (d.action !== 'hud') return;
+      const v = d.data || {};
+      document.getElementById('hud').classList.toggle('on', v.visible !== false);
+      if (v.health != null) setGauge('health', v.health);
+      if (v.armor  != null) setGauge('armor', v.armor);
+      if (v.hunger != null) setGauge('hunger', v.hunger);
+      if (v.thirst != null) setGauge('thirst', v.thirst);
+    });
+    ['health', 'armor', 'hunger', 'thirst'].forEach((k) => setGauge(k, 0));
+  </script>
+</body>
+</html>
