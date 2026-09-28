@@ -1,3 +1,16 @@
+<p align="center">
+  <img src="docs/banner.svg" alt="SimpleLife — Framework RP FiveM" width="100%">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/FiveM-build%203751-f36c21" alt="FiveM">
+  <img src="https://img.shields.io/badge/Lua-5.4-000080?logo=lua&logoColor=white" alt="Lua 5.4">
+  <img src="https://img.shields.io/badge/NUI-React%2019%20%C2%B7%20Vite%20%C2%B7%20Tailwind-61dafb?logo=react&logoColor=black" alt="React NUI">
+  <img src="https://img.shields.io/badge/DB-MariaDB%20via%20oxmysql-003545?logo=mariadb&logoColor=white" alt="MariaDB">
+  <img src="https://img.shields.io/badge/OneSync-ON-30d158" alt="OneSync">
+  <img src="https://img.shields.io/badge/statut-WIP-e0b000" alt="WIP">
+</p>
+
 # SimpleLife — Framework RP FiveM (maison)
 
 **SimpleLife** est un framework de jeu de rôle **FiveM** développé de zéro, pensé pour être
@@ -182,6 +195,24 @@ avec un ledger (`sl_migrations`) et un verrou anti-double-apply. Tables principa
 - Doc d'architecture détaillée (classes de bugs neutralisées, conventions) : voir [`PROJECT.md`](PROJECT.md).
 
 ---
+
+## 📸 Captures d'écran
+
+_Dépose tes captures en jeu dans `docs/screenshots/` puis retire les balises de commentaire ci‑dessous
+(les images ne sont pas fournies ici — je ne peux pas capturer ton jeu)._
+
+<!--
+<p align="center">
+  <img src="docs/screenshots/phone.png"       width="30%" alt="Téléphone">
+  <img src="docs/screenshots/concession.png"  width="30%" alt="Concessionnaire">
+  <img src="docs/screenshots/hud.png"         width="30%" alt="HUD">
+</p>
+<p align="center">
+  <img src="docs/screenshots/inventaire.png"  width="30%" alt="Inventaire">
+  <img src="docs/screenshots/societe.png"     width="30%" alt="Société / POS">
+  <img src="docs/screenshots/convoi.png"      width="30%" alt="Import / convoi">
+</p>
+-->
 
 ## 📜 Crédits & licence
 
